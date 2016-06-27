@@ -59,13 +59,15 @@ namespace JMGJJSMS
             {
                 var rpts = apiclient.receiveRPT(smid, -1);
                 List<RptResult> list = new List<RptResult>();
-                if (rpts.Length > 0)
+                if (rpts != null)
                 {
                     foreach (var r in rpts)
                     {
                         list.Add(new RptResult(mobile: r.getMobile(), smid: r.getSmID(), code: r.getCode(), desc: r.getDesc(), rpttime: r.getRptTime()));
                     }
+                    return list;
                 }
+                list.Add(new RptResult(mobile: "", smid: smid, code: 0, desc: "RPT of this smId has been queried or smId error!", rpttime: null));
                 return list;
             }
             catch (Exception ex)
